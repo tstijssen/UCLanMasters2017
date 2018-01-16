@@ -9,6 +9,8 @@ public class SetupPlayerName : NetworkBehaviour {
     public string playerName = "player";
     [SyncVar]
     public Color playerColour = Color.white;
+    [SyncVar]
+    public string playerVehicle = "Hover Tank";
 
     public GameObject[] playerList; // list of active players in the game
 
@@ -57,7 +59,7 @@ public class SetupPlayerName : NetworkBehaviour {
 
     void Update()
     {
-        this.GetComponentInChildren<TextMesh>().text = playerName;
+        this.GetComponentInChildren<TextMesh>().text = playerName + " " + playerVehicle;
     }
 
     public int GetScore()

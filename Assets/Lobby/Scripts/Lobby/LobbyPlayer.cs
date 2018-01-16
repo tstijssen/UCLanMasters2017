@@ -12,10 +12,12 @@ namespace Prototype.NetworkLobby
     public class LobbyPlayer : NetworkLobbyPlayer
     {
         static Color[] Colors = new Color[] { Color.magenta, Color.red, Color.cyan, Color.blue, Color.green, Color.yellow };
+        static string[] Vehicles = new string[] { "Hover Tank", "Apocalypse Car"};
         //used on server to avoid assigning the same color to two player
         static List<int> _colorInUse = new List<int>();
 
         public Button colorButton;
+        public Button vehicleButton;
         public InputField nameInput;
         public Button readyButton;
         public Button waitingPlayerButton;
@@ -29,6 +31,8 @@ namespace Prototype.NetworkLobby
         public string playerName = "";
         [SyncVar(hook = "OnMyColor")]
         public Color playerColor = Color.white;
+        [SyncVar(hook = "OnMyVehicle")]
+        public string playerVehicle = "Hover Tank";
 
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
@@ -64,6 +68,7 @@ namespace Prototype.NetworkLobby
             //will be created with the right value currently on server
             OnMyName(playerName);
             OnMyColor(playerColor);
+            OnMyVehicle(playerVehicle);
         }
 
         public override void OnStartAuthority()
@@ -121,6 +126,7 @@ namespace Prototype.NetworkLobby
 
             //we switch from simple name display to name input
             colorButton.interactable = true;
+            vehicleButton.interactable = true;
             nameInput.interactable = true;
 
             nameInput.onEndEdit.RemoveAllListeners();
@@ -128,6 +134,9 @@ namespace Prototype.NetworkLobby
 
             colorButton.onClick.RemoveAllListeners();
             colorButton.onClick.AddListener(OnColorClicked);
+
+            vehicleButton.onClick.RemoveAllListeners();
+            vehicleButton.onClick.AddListener(OnVehicleClicked);
 
             readyButton.onClick.RemoveAllListeners();
             readyButton.onClick.AddListener(OnReadyClicked);
@@ -161,6 +170,7 @@ namespace Prototype.NetworkLobby
                 textComponent.color = ReadyColor;
                 readyButton.interactable = false;
                 colorButton.interactable = false;
+                vehicleButton.interactable = false;
                 nameInput.interactable = false;
             }
             else
@@ -172,6 +182,7 @@ namespace Prototype.NetworkLobby
                 textComponent.color = Color.white;
                 readyButton.interactable = isLocalPlayer;
                 colorButton.interactable = isLocalPlayer;
+                vehicleButton.interactable = isLocalPlayer;
                 nameInput.interactable = isLocalPlayer;
             }
         }
@@ -189,6 +200,12 @@ namespace Prototype.NetworkLobby
             nameInput.text = playerName;
         }
 
+        public void OnMyVehicle(string newVehicle)
+        {
+            playerVehicle = newVehicle;
+            vehicleButton.GetComponentInChildren<Text>().text = newVehicle;
+        }
+
         public void OnMyColor(Color newColor)
         {
             playerColor = newColor;
@@ -202,6 +219,11 @@ namespace Prototype.NetworkLobby
         public void OnColorClicked()
         {
             CmdColorChange();
+        }
+
+        public void OnVehicleClicked()
+        {
+            CmdVehicleChange();
         }
 
         public void OnReadyClicked()
@@ -245,6 +267,20 @@ namespace Prototype.NetworkLobby
         }
 
         //====== Server Command
+
+        [Command]
+        public void CmdVehicleChange()
+        {
+            int idx = System.Array.IndexOf(Vehicles, playerVehicle);
+
+            if (idx < 0)
+            {
+                idx = 0;
+            }
+            idx = (idx + 1) % Vehicles.Length;
+
+            playerVehicle = Vehicles[idx];
+        }
 
         [Command]
         public void CmdColorChange()
