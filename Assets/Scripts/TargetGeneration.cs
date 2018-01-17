@@ -13,7 +13,7 @@ public class TargetGeneration : MonoBehaviour {
 	void Start () {
         MoveTarget();
         // instantiate target object once
-        m_Target = Instantiate(m_Target, m_TargetPos, Quaternion.Euler(m_TargetRot));   
+        //m_Target = Instantiate(m_Target, m_TargetPos, Quaternion.Euler(m_TargetRot));   
     }
 
     void Update () {

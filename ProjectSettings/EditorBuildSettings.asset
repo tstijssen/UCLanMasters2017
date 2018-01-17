@@ -6,14 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Lobby.unity
-    guid: 3aae931b29e1fba4e9ede4868e2902c1
-  - enabled: 1
-    path: Assets/Scenes/Battle.unity
-    guid: a2acf781cd1791043afd33e0d6995276
-  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: a2f1d1fb7803d504b80ff3f1353336ae
-  - enabled: 0
-    path: Assets/Scenes/GameSetup.unity
-    guid: cdbd48634d40f374c842dbaec9bb75e8
+  - enabled: 1
+    path: Assets/Scenes/Battle Local.unity
+    guid: e8e2eedeb9ff06641915620fcbb97a4b
+  - enabled: 1
+    path: Assets/Scenes/Battle Online.unity
+    guid: 839861b3ba080f141aed6fd503ac08c7
+  - enabled: 1
+    path: Assets/Scenes/Local Game Lobby.unity
+    guid: e612d82d2689b1c4e8ebaa8fe1b14331
+  - enabled: 1
+    path: Assets/Scenes/Online Lobby.unity
+    guid: ce6fad749aeca614a92b3746370a7f8b

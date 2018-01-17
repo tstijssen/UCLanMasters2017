@@ -16,7 +16,7 @@ public class Buttons : MonoBehaviour {
         QuitButton.onClick.AddListener(QuitGame);
         StartLocalButton.onClick.AddListener(StartLocal);
         StartNetworkedButton.onClick.AddListener(StartNetworked);
-        SettingsButton.onClick.AddListener(GameSettings);
+        //SettingsButton.onClick.AddListener(GameSettings);
     }
 	
 	// Update is called once per frame
@@ -25,22 +25,22 @@ public class Buttons : MonoBehaviour {
                 
 	}
 
-    void GameSettings()
-    {
-        Debug.Log("Click");
-        // settings screen not implemented yet
-    }
+    //void GameSettings()
+    //{
+    //    Debug.Log("Click");
+    //    // settings screen not implemented yet
+    //}
 
     void StartNetworked()
     {
         Debug.Log("Click");
-        SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("Online Lobby");
     }
 
     void StartLocal()
     {
         Debug.Log("Click");
-        SceneManager.LoadScene("GameSetup");    // change this scene to the local game KENDALL
+        SceneManager.LoadScene("Local Game Lobby");    // change this scene to the local game KENDALL
     }
 
     void QuitGame()
