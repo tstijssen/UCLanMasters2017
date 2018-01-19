@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class VehicleControl : NetworkBehaviour {
+
+public class TankControl : MonoBehaviour
+{
 
 
     public float m_RotSpeed;           // tank rotation speed modifier
@@ -18,10 +20,6 @@ public class VehicleControl : NetworkBehaviour {
 
     private float m_ReloadTimer;       // counts down to 0, tank can only shoot when not counting down
 
-    //UI
-    public GameObject m_Reticle;
-    private int m_RayLayer;
-
     //controls
     private bool controller = false;
 
@@ -33,7 +31,6 @@ public class VehicleControl : NetworkBehaviour {
     // Use this for initialization
     void Start()
     {
-        m_Reticle = Instantiate<GameObject>(m_Reticle);
         m_Vehicle = GetComponent<Rigidbody>();
         m_Turret = FindClosestTarget("Turret");
         m_Barrel = GameObject.Find("BulletSpawn");
@@ -43,7 +40,6 @@ public class VehicleControl : NetworkBehaviour {
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
 
-        m_RayLayer = LayerMask.GetMask("Floor");
     }
 
     // perform hovering of the car rigid body
@@ -83,7 +79,7 @@ public class VehicleControl : NetworkBehaviour {
         bool fired = false;
 
         //Reloading
-        if (m_ReloadTimer > 0.0f) 
+        if (m_ReloadTimer > 0.0f)
         {
             m_ReloadTimer -= Time.deltaTime;
         }
@@ -103,7 +99,7 @@ public class VehicleControl : NetworkBehaviour {
         {
             fired = false;
         }
-       
+
 
     }
 
@@ -129,28 +125,23 @@ public class VehicleControl : NetworkBehaviour {
             float tankHeight = m_Turret.transform.position.y + transform.position.y;    //Height for aiming reticle
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            
-            //Position for reticle
-            if (Physics.Raycast(ray, out hit, 100, m_RayLayer))
-            {
-                m_Reticle.transform.position = new Vector3(hit.point.x, m_Barrel.transform.position.y, hit.point.z);
-                //Debug.Log(hit.transform);
-                m_Turret.transform.LookAt(m_Reticle.transform);             
-            }
+
+
         }
 
         transform.rotation = Quaternion.LookRotation(new Vector3(m_Vehicle.velocity.x, 0f, m_Vehicle.velocity.z));
         m_Vehicle.AddForce(move * m_Speed);
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-        
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+
         // first check if this is the client
-        if (!isLocalPlayer)
-        {
-            return;
-        }
+        //if (isLocalPlayer)
+        //{
+        //    return;
+        //}
         Move();
         Hover();
         Shoot();
@@ -201,3 +192,4 @@ public class VehicleControl : NetworkBehaviour {
         NetworkServer.Spawn(bullet);
     }
 }
+

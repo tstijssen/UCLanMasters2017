@@ -63,6 +63,6 @@ public class GameSetup : MonoBehaviour {
     void Launch()
     {
         
-        SceneManager.LoadScene("Battle");
+        SceneManager.LoadScene("Battle Local");
     }
 }

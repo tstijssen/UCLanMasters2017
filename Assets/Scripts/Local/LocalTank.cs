@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReticleBehaviour : MonoBehaviour {
+public class LocalTank : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -11,6 +11,6 @@ public class ReticleBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.LookAt(Camera.main.transform);
+		
 	}
 }
