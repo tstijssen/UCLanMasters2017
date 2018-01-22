@@ -9,7 +9,7 @@ public class Buttons : MonoBehaviour {
     public Button QuitButton;
     public Button StartLocalButton;
     public Button StartNetworkedButton;
-    public Button SettingsButton;
+    //public Button SettingsButton;
     
     // Use this for initialization
     void Start () {

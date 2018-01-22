@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 
-public class TankControl : MonoBehaviour
+public class TankControl : NetworkBehaviour
 {
 
 
@@ -137,11 +137,11 @@ public class TankControl : MonoBehaviour
     void FixedUpdate()
     {
 
-        // first check if this is the client
-        //if (isLocalPlayer)
-        //{
-        //    return;
-        //}
+        //first check if this is the client
+        if (isLocalPlayer)
+            {
+                return;
+            }
         Move();
         Hover();
         Shoot();
